@@ -1,15 +1,27 @@
 #include <string>
 
+using namespace std;
 class Cancion
 {
 private:
-  std::string titulo;
-  std::string autor;
-  std::string album;
+  int id;
+  string titulo;
+  string autor;
+  string album;
   int year;
   int duracion;
-  std::string filePath;
+  string filePath;
 
 public:
-  Cancion();
+  Cancion(int id, string titulo, string autor, string album, int year, int duracion, string filePath)
+  {
+    this->id = id;
+    this->titulo = titulo;
+    this->autor = autor;
+    this->album = album;
+    this->year = year;
+    this->duracion = duracion;
+    this->filePath = filePath;
+  };
+  ~Cancion() {};
 };

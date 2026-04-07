@@ -1,9 +1,8 @@
-
 #include <iostream>
 #include <fstream>
 #include <string>
 
-#include "../modules/List/LinkedList.h"
+#include "modules/List/LinkedList.h"
 #include "Cancion.h"
 using namespace std;
 
@@ -25,12 +24,43 @@ void mostrarOpciones()
   cout << "Ingrese Opción: ";
 };
 
-void guardarMusica() {
+bool guardarMusica()
+{
+  fstream arch("../music_source.txt");
+  if (!arch)
+  {
+    return false;
+  }
+  string linea;
+  while (getline(arch, linea))
+  {
+    string datos[7];
+    int i = 0;
+    string actual = "";
+    for (int j = 0; j < linea.size(); j++)
+    {
+      if (linea[j] == ',')
+      {
+        datos[i++] = actual; // primero lo agarra, despues lo suma
+        actual = "";
+      }
+      else
+      {
+        actual += linea[j];
+      }
+    }
+    datos[i] = actual;
 
+    Cancion *c = new Cancion(stoi(datos[0]), datos[1], datos[2], datos[3], stoi(datos[4]), stoi(datos[5]), datos[6]);
+    listadoCanciones->add(c);
+  }
+  arch.close();
+  return true;
 };
 
-void guardarOpciones() {
-
+bool guardarOpciones()
+{
+  return true;
 };
 
 void cleanUp()
@@ -41,8 +71,21 @@ void cleanUp()
 
 int main()
 {
-  guardarMusica();
-  guardarOpciones();
+  bool musicaCargada = guardarMusica();
+  bool optionsCargadas = guardarOpciones();
+
+  if (!(musicaCargada && optionsCargadas))
+  {
+    if (!musicaCargada)
+    {
+      cout << "Ha habido un problema cargando la musica...";
+    }
+    if (!optionsCargadas)
+    {
+      cout << "Ha habido un problema cargando la configuracion...";
+    }
+    return 0;
+  }
   char opcion;
   do
   {
