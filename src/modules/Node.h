@@ -1,5 +1,4 @@
 #pragma once
-
 template <typename T>
 class Node
 {
@@ -8,13 +7,15 @@ class Node
 
 public:
   Node() : next(nullptr) {};
-  Node(&T data)
+
+  Node(T data)
   {
     this.data = data;
     this.next = nullptr;
   };
 
-  const T *getData() { return &data };
+  const T *getData() { return &data; };
+  Node *getNext() { return next; }
   void setData(const T &data)
   {
     this.data = data;

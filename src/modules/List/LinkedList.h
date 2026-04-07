@@ -10,13 +10,10 @@ private:
 
 public:
   LinkedList<T>() : head(nullptr){};
-  LinkedList<T>(Node<T> *node)
-  {
-    this.head = node;
-  }
   ~LinkedList();
-
   int length();
+  void add(T data);
+  void add(T *data);
 };
 
 #include "LinkedList.cpp"
