@@ -52,7 +52,7 @@ bool guardarMusica()
     datos[i] = actual;
 
     Cancion *c = new Cancion(stoi(datos[0]), datos[1], datos[2], datos[3], stoi(datos[4]), stoi(datos[5]), datos[6]);
-    listadoCanciones->add(c);
+    listadoCanciones->append(c);
   }
   arch.close();
   return true;

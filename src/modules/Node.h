@@ -8,20 +8,18 @@ class Node
 public:
   Node() : next(nullptr) {};
 
-  Node(T data)
-  {
-    this.data = data;
-    this.next = nullptr;
-  };
-
   const T *getData() { return &data; };
-  Node *getNext() { return next; }
+  Node<T> *getNext() { return next; }
   void setData(const T &data)
   {
-    this.data = data;
+    this->data = data;
   }
-  void setNext(Node *next)
+  void setNext(Node<T> *next)
   {
-    this.next = next;
+    this->next = next;
+  }
+  bool hasNext()
+  {
+    return this->next != nullptr;
   }
 };
