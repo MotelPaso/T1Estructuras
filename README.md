@@ -2,7 +2,7 @@
 
 ### Instrucciones para compilar y correr el codigo
 
-El codigo fue trabajado utilizando Arch y Ubuntu Linux, por lo tanto, las instrucciones serán el compilador g++.
+El codigo fue trabajado utilizando Arch y Ubuntu Linux, por lo tanto, las instrucciones serán para el compilador g++.
 
 Si se desea revisar utilizando otro sistema operativo, se puede utilizar el archivo `main` del repositorio con los siguientes comandos:
 
