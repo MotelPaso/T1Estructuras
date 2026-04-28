@@ -24,4 +24,8 @@ public:
     this->filePath = filePath;
   };
   ~Cancion() {};
+  string mostrar() const
+  {
+    return "" + this->titulo;
+  };
 };

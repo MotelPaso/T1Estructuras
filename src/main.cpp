@@ -63,6 +63,11 @@ bool guardarOpciones()
   return true;
 };
 
+void mostrarCanciones()
+{
+  cout << listadoCanciones->mostrar() << endl;
+}
+
 void cleanUp()
 {
   delete listaReproduccion;
@@ -113,7 +118,7 @@ int main()
       // show actual list of sex
       break;
     case 'L':
-      // show full song list
+      mostrarCanciones();
       break;
     case 'X':
       cout << "Adios!" << endl;
