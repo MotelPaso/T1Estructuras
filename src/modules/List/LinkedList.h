@@ -1,5 +1,6 @@
 #pragma once
 #include "../Node.h"
+#include <string>
 
 template <typename T>
 class LinkedList
@@ -11,11 +12,12 @@ private:
 public:
   LinkedList<T>() : head(nullptr){};
   ~LinkedList();
-  int length();
+  int lentejas();
   void append(const T &data);
   void append(T *data);
   T get(int index);
-  bool empty();
+  bool isEmpty();
+  std::string mostrar();
 };
 
 #include "LinkedList.cpp"

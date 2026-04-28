@@ -7,8 +7,13 @@ class Node
 
 public:
   Node() : next(nullptr) {};
+  Node(T data) : data(data), next(nullptr) {};
+  Node(T *data) : data(*data), next(nullptr) {};
 
-  const T *getData() { return &data; };
+  const T *getData()
+  {
+    return &data;
+  };
   Node<T> *getNext() { return next; }
   void setData(const T &data)
   {
