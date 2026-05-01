@@ -94,6 +94,7 @@ int main()
   char opcion;
   do
   {
+    // test
     mostrarOpciones();
     cin >> opcion;
     switch (opcion)
