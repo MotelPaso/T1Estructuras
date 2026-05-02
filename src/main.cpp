@@ -3,12 +3,13 @@
 #include <string>
 
 #include "modules/List/LinkedList.h"
-#include "Cancion.h"
+#include "modules/Cancion/Cancion.h"
+#include "modules/ListaReproduccion/ListaReproduccion.h"
 using namespace std;
 
 // global lists
 LinkedList<Cancion> *listadoCanciones = new LinkedList<Cancion>();
-LinkedList<Cancion> *listaReproduccion = new LinkedList<Cancion>();
+ListaReproduccion *listaReproduccion = new ListaReproduccion();
 
 void mostrarOpciones()
 {
@@ -94,37 +95,35 @@ void menuCanciones()
 
     cin >> opcionL;
 
-    
-
     if (opcionL == "V" || opcionL == "v")
     {
       return;
     }
-  else if (opcionL[0] == 'R' || opcionL[0] == 'r')
-{
-  if (opcionL.length() > 1)
-  {
-    int num = stoi(opcionL.substr(1));
-
-    if (num >= 1 && num <= listadoCanciones->lentejas())
+    else if (opcionL[0] == 'R' || opcionL[0] == 'r')
     {
-      Cancion c = listadoCanciones->get(num - 1);
-      cout << "Reproduciendo: " << c.mostrar() << endl;
+      if (opcionL.length() > 1)
+      {
+        int num = stoi(opcionL.substr(1));
+
+        if (num >= 1 && num <= listadoCanciones->lentejas())
+        {
+          Cancion *c = listadoCanciones->get(num - 1);
+          listaReproduccion->append(c);
+        }
+        else
+        {
+          cout << "Numero invalido." << endl;
+        }
+      }
+      else
+      {
+        cout << "Debes ingresar un numero." << endl;
+      }
     }
     else
     {
-      cout << "Numero invalido." << endl;
+      cout << "Opcion no valida o aun no implementada." << endl;
     }
-  }
-  else
-  {
-    cout << "Debes ingresar un numero." << endl;
-  }
-}
-else
-{
-  cout << "Opcion no valida o aun no implementada." << endl;
-}
 
   } while (true);
 }
@@ -154,13 +153,13 @@ int main()
   char opcion;
   do
   {
-    // test
+    cout << listaReproduccion->getEstadoActual() << endl;
     mostrarOpciones();
     cin >> opcion;
     switch (opcion)
     {
     case 'W':
-      // play
+      listaReproduccion->togglePlayStop();
       break;
     case 'Q':
       // prev
@@ -179,7 +178,7 @@ int main()
       // show actual list of sex
       break;
     case 'L':
-     menuCanciones();
+      menuCanciones();
       break;
     case 'X':
       cout << "Adios!" << endl;
