@@ -10,7 +10,7 @@ public:
   Node(T data) : data(data), next(nullptr) {};
   Node(T *data) : data(*data), next(nullptr) {};
 
-  const T *getData()
+  T *getData()
   {
     return &data;
   };

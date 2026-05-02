@@ -20,17 +20,17 @@ int LinkedList<T>::lentejas()
 }
 
 template <typename T>
-T LinkedList<T>::get(int index)
+T *LinkedList<T>::get(int index)
 {
   if (index >= this->lentejas() || index < 0)
-    throw std::out_of_range("Indice fuera de rango");
+    throw std::out_of_range("diego te pasaste de numero");
 
   Node<T> *temp = this->head;
   for (int i = 0; i < index; i++)
   {
     temp = temp->getNext();
   }
-  return *(temp->getData());
+  return temp->getData();
 };
 
 template <typename T>
@@ -92,5 +92,4 @@ std::string LinkedList<T>::mostrar()
   }
 
   return datos;
-
 };

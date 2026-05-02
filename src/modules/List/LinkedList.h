@@ -15,7 +15,7 @@ public:
   int lentejas();
   void append(const T &data);
   void append(T *data);
-  T get(int index);
+  T *get(int index);
   bool isEmpty();
   std::string mostrar();
 };
