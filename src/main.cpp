@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 
 #include "modules/List/LinkedList.h"
 #include "modules/Cancion/Cancion.h"
@@ -10,6 +11,15 @@ using namespace std;
 // global lists
 LinkedList<Cancion> *listadoCanciones = new LinkedList<Cancion>();
 ListaReproduccion *listaReproduccion = new ListaReproduccion();
+
+void limpiarPantalla()
+{
+#ifdef _WIN32
+  system("cls"); // si es windows se usa este comando
+#else
+  system("clear"); // si es linux, este comando.
+#endif
+}
 
 void mostrarOpciones()
 {
@@ -109,9 +119,11 @@ void menuCanciones()
         {
           Cancion *c = listadoCanciones->get(num - 1);
           listaReproduccion->append(c);
+          cout << c->mostrar() + " Agregada." << endl;
         }
         else
         {
+
           cout << "Numero invalido." << endl;
         }
       }
@@ -153,6 +165,7 @@ int main()
   char opcion;
   do
   {
+    limpiarPantalla();
     cout << listaReproduccion->getEstadoActual() << endl;
     mostrarOpciones();
     cin >> opcion;
