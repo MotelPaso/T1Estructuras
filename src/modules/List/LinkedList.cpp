@@ -16,21 +16,21 @@ LinkedList<T>::~LinkedList()
 template <typename T>
 int LinkedList<T>::lentejas()
 {
-  return this->size();
+  return this->size;
 }
 
 template <typename T>
 T LinkedList<T>::get(int index)
 {
   if (index >= this->lentejas() || index < 0)
-    throw std::out_of_range("diego weon tiene que caber en la wea");
+    throw std::out_of_range("Indice fuera de rango");
 
   Node<T> *temp = this->head;
   for (int i = 0; i < index; i++)
   {
     temp = temp->getNext();
   }
-  return temp->getData();
+  return *(temp->getData());
 };
 
 template <typename T>
@@ -81,10 +81,16 @@ std::string LinkedList<T>::mostrar()
 {
   Node<T> *temp = head;
   std::string datos = "";
+  int contador = 1;
+
   while (temp != nullptr)
   {
+    datos += std::to_string(contador) + ". ";
     datos += temp->getData()->mostrar() + "\n";
     temp = temp->getNext();
+    contador++;
   }
+
   return datos;
+
 };

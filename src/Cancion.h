@@ -1,6 +1,7 @@
+#pragma once
 #include <string>
-
 using namespace std;
+
 class Cancion
 {
 private:
@@ -25,7 +26,7 @@ public:
   };
   ~Cancion() {};
   string mostrar() const
-  {
-    return "" + this->titulo;
-  };
+{
+  return titulo + " - " + autor;
+}
 };

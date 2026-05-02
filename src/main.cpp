@@ -24,7 +24,7 @@ void mostrarOpciones()
   cout << "Ingrese Opción: ";
 };
 
-bool guardarMusica()
+bool cargarMusica()
 {
   fstream arch("../music_source.txt");
   if (!arch)
@@ -58,14 +58,75 @@ bool guardarMusica()
   return true;
 };
 
-bool guardarOpciones()
+bool cargarOpciones()
 {
   return true;
-};
+}
 
 void mostrarCanciones()
 {
+  cout << endl;
+  cout << "Canciones registradas:" << endl;
+
+  if (listadoCanciones->isEmpty())
+  {
+    cout << "No hay canciones registradas." << endl;
+    return;
+  }
+
   cout << listadoCanciones->mostrar() << endl;
+}
+void menuCanciones()
+{
+  string opcionL;
+
+  do
+  {
+    mostrarCanciones();
+
+    cout << "Opciones:" << endl;
+    cout << "R<num> - Reproducir cancion seleccionada" << endl;
+    cout << "A<num> - Agregar cancion al final de la lista" << endl;
+    cout << "N - Agregar cancion al registro" << endl;
+    cout << "D<num> - Eliminar cancion seleccionada" << endl;
+    cout << "V - Volver al menu principal" << endl;
+    cout << "Ingrese opcion: ";
+
+    cin >> opcionL;
+
+    
+
+    if (opcionL == "V" || opcionL == "v")
+    {
+      return;
+    }
+  else if (opcionL[0] == 'R' || opcionL[0] == 'r')
+{
+  if (opcionL.length() > 1)
+  {
+    int num = stoi(opcionL.substr(1));
+
+    if (num >= 1 && num <= listadoCanciones->lentejas())
+    {
+      Cancion c = listadoCanciones->get(num - 1);
+      cout << "Reproduciendo: " << c.mostrar() << endl;
+    }
+    else
+    {
+      cout << "Numero invalido." << endl;
+    }
+  }
+  else
+  {
+    cout << "Debes ingresar un numero." << endl;
+  }
+}
+else
+{
+  cout << "Opcion no valida o aun no implementada." << endl;
+}
+
+  } while (true);
 }
 
 void cleanUp()
@@ -76,9 +137,8 @@ void cleanUp()
 
 int main()
 {
-  bool musicaCargada = guardarMusica();
-  bool optionsCargadas = guardarOpciones();
-
+  bool musicaCargada = cargarMusica();
+  bool optionsCargadas = cargarOpciones();
   if (!(musicaCargada && optionsCargadas))
   {
     if (!musicaCargada)
@@ -119,7 +179,7 @@ int main()
       // show actual list of sex
       break;
     case 'L':
-      mostrarCanciones();
+     menuCanciones();
       break;
     case 'X':
       cout << "Adios!" << endl;

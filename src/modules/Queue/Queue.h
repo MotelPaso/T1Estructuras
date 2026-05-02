@@ -1,5 +1,4 @@
-
-
+#pragma once
 #include "../Node.h"
 
 template <typename T>
@@ -12,8 +11,8 @@ private:
   int size;
 
 public:
-  Queue() : first(nullptr), last(nullptr) {};
-  ~Queue() {};
+    Queue() : first(nullptr), last(nullptr), size(0) {};  
+    ~Queue() {};
 
   void push(T data);
   T *front();
@@ -21,3 +20,5 @@ public:
   bool isEmpty();
   int lentejas();
 };
+
+#include "Queue.cpp"
