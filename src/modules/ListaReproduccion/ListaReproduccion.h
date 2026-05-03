@@ -10,7 +10,7 @@ public:
   DNodo *next;
   DNodo *prev;
   DNodo(Cancion *c) : next(nullptr), prev(nullptr), cancion(c) {};
-  
+
   ~DNodo() {};
 };
 
@@ -50,6 +50,7 @@ public:
   void clear();
   std::string mostrarListaActual();
   void saltarA(int posicion);
+  int lentejas();
 };
 
 #include "ListaReproduccion.cpp"

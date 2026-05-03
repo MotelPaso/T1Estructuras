@@ -176,3 +176,7 @@ void ListaReproduccion::clear()
   end = nullptr;
   size = 0;
 }
+int ListaReproduccion::lentejas()
+{
+  return this->size;
+}

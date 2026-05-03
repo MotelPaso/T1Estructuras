@@ -87,6 +87,7 @@ void mostrarCanciones()
 
   cout << listadoCanciones->mostrar() << endl;
 }
+
 void menuCanciones()
 {
   string opcionL;
@@ -109,24 +110,29 @@ void menuCanciones()
     {
       return;
     }
-    else if (opcionL[0] == 'A' || opcionL[0] == 'a'){
-        if (opcionL.length() > 1) {
-    int num = stoi(opcionL.substr(1));
+    else if (opcionL[0] == 'A' || opcionL[0] == 'a')
+    {
+      if (opcionL.length() > 1)
+      {
+        int num = stoi(opcionL.substr(1));
 
-    if (num >= 1 && num <= listadoCanciones->lentejas()){
-      Cancion *c = listadoCanciones->get(num - 1);
-      listaReproduccion->append(c);
+        if (num >= 1 && num <= listadoCanciones->lentejas())
+        {
+          Cancion *c = listadoCanciones->get(num - 1);
+          listaReproduccion->append(c);
 
-      cout << c->mostrar() << " agregada a la lista." << endl;
+          cout << c->mostrar() << " agregada a la lista." << endl;
+        }
+        else
+        {
+          cout << "Numero invalido." << endl;
+        }
+      }
+      else
+      {
+        cout << "Debes ingresar un numero. Ej: A3" << endl;
+      }
     }
-    else{
-      cout << "Numero invalido." << endl;
-       }
-     }
-     else{
-    cout << "Debes ingresar un numero. Ej: A3" << endl;
-  }
-}
     else if (opcionL[0] == 'R' || opcionL[0] == 'r')
     {
       if (opcionL.length() > 1)
@@ -136,8 +142,8 @@ void menuCanciones()
         if (num >= 1 && num <= listadoCanciones->lentejas())
         {
           Cancion *c = listadoCanciones->get(num - 1);
-          listaReproduccion->clear();   // limpiar lista
-          listaReproduccion->append(c); // agregar canción
+          listaReproduccion->clear();          // limpiar lista
+          listaReproduccion->append(c);        // agregar canción
           listaReproduccion->togglePlayStop(); // reproducir
 
           cout << "Reproduciendo: " << c->mostrar() << endl;
@@ -153,7 +159,7 @@ void menuCanciones()
         cout << "Debes ingresar un numero." << endl;
       }
     }
-      else if (opcionL == "N" || opcionL == "n")
+    else if (opcionL == "N" || opcionL == "n")
     {
       string titulo, autor, album, ruta;
       int year, duracion;
@@ -169,7 +175,7 @@ void menuCanciones()
       cout << "Album: ";
       getline(cin, album);
 
-      cout << "Anio: "; 
+      cout << "Anio: ";
       cin >> year;
 
       cout << "Duracion (segundos): ";
@@ -293,27 +299,23 @@ int main()
     switch (opcion)
     {
     case 'W':
-     listaReproduccion->togglePlayStop();
-     break;
-
+      listaReproduccion->togglePlayStop();
+      break;
     case 'Q':
-     listaReproduccion->retroceder();
-     break;
-
+      listaReproduccion->retroceder();
+      break;
     case 'E':
-     listaReproduccion->avanzar();
-     break;
+      listaReproduccion->avanzar();
+      break;
     case 'S':
       listaReproduccion->activarAleatorio();
       cout << "Modo aleatorio cambiado" << endl;
-      // how tf
       break;
     case 'R':
       cambiarRepeticion();
       break;
     case 'A':
       menuListaReproduccion();
-      // show actual list of sex
       break;
     case 'L':
       menuCanciones();
