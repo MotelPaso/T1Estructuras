@@ -10,6 +10,54 @@ ListaReproduccion::~ListaReproduccion()
     delete temp;
   }
 }
+std::string ListaReproduccion::mostrarListaActual()
+{
+  if (this->actual == nullptr)
+  {
+    return "Vacía\n";
+  }
+
+  std::string datos = "";
+  DNodo *temp = this->actual->next;
+  int contador = 1;
+
+  if (temp == nullptr)
+  {
+    return "Vacía\n";
+  }
+
+  while (temp != nullptr)
+  {
+    datos += std::to_string(contador) + ". ";
+    datos += temp->cancion->mostrar() + "\n";
+    temp = temp->next;
+    contador++;
+  }
+
+  return datos;
+}
+
+void ListaReproduccion::saltarA(int posicion)
+{
+  if (posicion <= 0 || this->actual == nullptr)
+  {
+    return;
+  }
+
+  DNodo *temp = this->actual->next;
+  int contador = 1;
+
+  while (temp != nullptr && contador < posicion)
+  {
+    temp = temp->next;
+    contador++;
+  }
+
+  if (temp != nullptr)
+  {
+    this->actual = temp;
+  }
+}
 
 void ListaReproduccion::append(Cancion *c)
 {
@@ -113,4 +161,18 @@ void ListaReproduccion::retroceder()
   }
   actual = actual->prev;
   return;
+}
+void ListaReproduccion::clear()
+{
+  while (head != nullptr)
+  {
+    DNodo *temp = head;
+    head = head->next;
+    delete temp;
+  }
+
+  head = nullptr;
+  actual = nullptr;
+  end = nullptr;
+  size = 0;
 }

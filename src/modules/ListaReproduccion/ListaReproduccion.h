@@ -10,6 +10,7 @@ public:
   DNodo *next;
   DNodo *prev;
   DNodo(Cancion *c) : next(nullptr), prev(nullptr), cancion(c) {};
+  
   ~DNodo() {};
 };
 
@@ -46,6 +47,9 @@ public:
   void avanzar();
   // Retrocede una cancion en la lista
   void retroceder();
+  void clear();
+  std::string mostrarListaActual();
+  void saltarA(int posicion);
 };
 
 #include "ListaReproduccion.cpp"

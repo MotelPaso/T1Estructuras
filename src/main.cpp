@@ -109,6 +109,24 @@ void menuCanciones()
     {
       return;
     }
+    else if (opcionL[0] == 'A' || opcionL[0] == 'a'){
+        if (opcionL.length() > 1) {
+    int num = stoi(opcionL.substr(1));
+
+    if (num >= 1 && num <= listadoCanciones->lentejas()){
+      Cancion *c = listadoCanciones->get(num - 1);
+      listaReproduccion->append(c);
+
+      cout << c->mostrar() << " agregada a la lista." << endl;
+    }
+    else{
+      cout << "Numero invalido." << endl;
+       }
+     }
+     else{
+    cout << "Debes ingresar un numero. Ej: A3" << endl;
+  }
+}
     else if (opcionL[0] == 'R' || opcionL[0] == 'r')
     {
       if (opcionL.length() > 1)
@@ -118,8 +136,11 @@ void menuCanciones()
         if (num >= 1 && num <= listadoCanciones->lentejas())
         {
           Cancion *c = listadoCanciones->get(num - 1);
-          listaReproduccion->append(c);
-          cout << c->mostrar() + " Agregada." << endl;
+          listaReproduccion->clear();   // limpiar lista
+          listaReproduccion->append(c); // agregar canción
+          listaReproduccion->togglePlayStop(); // reproducir
+
+          cout << "Reproduciendo: " << c->mostrar() << endl;
         }
         else
         {
@@ -131,6 +152,41 @@ void menuCanciones()
       {
         cout << "Debes ingresar un numero." << endl;
       }
+    }
+      else if (opcionL == "N" || opcionL == "n")
+    {
+      string titulo, autor, album, ruta;
+      int year, duracion;
+
+      cin.ignore(); // limpiar buffer
+
+      cout << "Titulo: ";
+      getline(cin, titulo);
+
+      cout << "Autor: ";
+      getline(cin, autor);
+
+      cout << "Album: ";
+      getline(cin, album);
+
+      cout << "Anio: "; 
+      cin >> year;
+
+      cout << "Duracion (segundos): ";
+      cin >> duracion;
+
+      cin.ignore(); // limpiar buffer otra vez
+
+      cout << "Ruta archivo: ";
+      getline(cin, ruta);
+
+      int nuevoId = listadoCanciones->lentejas() + 1;
+
+      Cancion *c = new Cancion(nuevoId, titulo, autor, album, year, duracion, ruta);
+
+      listadoCanciones->append(c);
+
+      cout << "Cancion agregada correctamente." << endl;
     }
     else
     {
@@ -145,6 +201,71 @@ void cleanUp()
   delete listaReproduccion;
   delete listadoCanciones;
 };
+void menuListaReproduccion()
+{
+  string opcionA;
+
+  do
+  {
+    cout << endl;
+    cout << listaReproduccion->getEstadoActual() << endl;
+    cout << "Lista de reproduccion actual:" << endl;
+    cout << listaReproduccion->mostrarListaActual() << endl;
+
+    cout << "Opciones:" << endl;
+    cout << "S<num> - Saltar a la cancion seleccionada" << endl;
+    cout << "V - Volver al menu principal" << endl;
+    cout << "Ingrese opcion: ";
+
+    cin >> opcionA;
+
+    if (opcionA == "V" || opcionA == "v")
+    {
+      return;
+    }
+    else if (opcionA[0] == 'S' || opcionA[0] == 's')
+    {
+      if (opcionA.length() > 1)
+      {
+        int num = stoi(opcionA.substr(1));
+        listaReproduccion->saltarA(num);
+        return;
+      }
+      else
+      {
+        cout << "Debes ingresar un numero. Ej: S2" << endl;
+      }
+    }
+    else
+    {
+      cout << "Opcion invalida." << endl;
+    }
+
+  } while (true);
+}
+
+void cambiarRepeticion()
+{
+  static int estado = 0;
+
+  if (estado == 0)
+  {
+    listaReproduccion->repetir("R1");
+    cout << "Repetir una activado" << endl;
+  }
+  else if (estado == 1)
+  {
+    listaReproduccion->repetir("RA");
+    cout << "Repetir todas activado" << endl;
+  }
+  else
+  {
+    listaReproduccion->repetir("R0");
+    cout << "Repeticion desactivada" << endl;
+  }
+
+  estado = (estado + 1) % 3;
+}
 
 int main()
 {
@@ -172,22 +293,26 @@ int main()
     switch (opcion)
     {
     case 'W':
-      listaReproduccion->togglePlayStop();
-      break;
+     listaReproduccion->togglePlayStop();
+     break;
+
     case 'Q':
-      // prev
-      break;
+     listaReproduccion->retroceder();
+     break;
+
     case 'E':
-      // next
-      break;
+     listaReproduccion->avanzar();
+     break;
     case 'S':
-      // toggle random mode!!!!!!!!!!!
+      listaReproduccion->activarAleatorio();
+      cout << "Modo aleatorio cambiado" << endl;
       // how tf
       break;
     case 'R':
-      // repeat
+      cambiarRepeticion();
       break;
     case 'A':
+      menuListaReproduccion();
       // show actual list of sex
       break;
     case 'L':
