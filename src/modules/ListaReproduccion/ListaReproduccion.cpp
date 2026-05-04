@@ -100,7 +100,9 @@ void ListaReproduccion::remove()
 
 void ListaReproduccion::activarAleatorio()
 {
-  return;
+  this->aleatorio = !this->aleatorio; //puede que ayude
+
+  
 };
 std::string ListaReproduccion::repetir(std::string r)
 {

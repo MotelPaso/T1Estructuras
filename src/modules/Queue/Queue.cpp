@@ -11,22 +11,34 @@ void Queue<T>::push(T data)
     this->last = temp;
     return;
   }
-  last->next = temp;
-  last = temp;
+    last->setNext(temp);  
+    last = temp;
   return;
 }
 template <typename T>
 void Queue<T>::pop()
 {
-  Node *temp = first->next;
+    if (this->isEmpty())
+  {
+    return;
+  }
+
+  Node<T> *temp = first->getNext();  
   delete first;
   first = temp;
+  this->size--;
+
+    if (this->size == 0)
+  {
+    last = nullptr;
+  }
+
   return;
 }
 template <typename T>
 T *Queue<T>::front()
 {
-  return this->front->getData();
+  return this->first->getData();
 }
 
 template <typename T>
