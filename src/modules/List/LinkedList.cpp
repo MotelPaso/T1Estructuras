@@ -34,6 +34,37 @@ T *LinkedList<T>::get(int index)
 };
 
 template <typename T>
+void LinkedList<T>::removeAt(int index)
+{
+  if (index < 0 || index >= this->size)
+  {
+    throw std::out_of_range("Indice fuera de rango");
+  }
+
+  Node<T> *temp = head;
+
+  if (index == 0)
+  {
+    head = head->getNext();
+    delete temp;
+    size--;
+    return;
+  }
+
+  Node<T> *prev = nullptr;
+
+  for (int i = 0; i < index; i++)
+  {
+    prev = temp;
+    temp = temp->getNext();
+  }
+
+  prev->setNext(temp->getNext());
+  delete temp;
+  size--;
+}
+
+template <typename T>
 void LinkedList<T>::append(const T &data)
 {
   Node<T> *newNode = new Node<T>(data);
@@ -72,7 +103,7 @@ void LinkedList<T>::append(T *data)
 
 template <typename T>
 bool LinkedList<T>::isEmpty()
-{
+{ 
   return head == nullptr;
 };
 

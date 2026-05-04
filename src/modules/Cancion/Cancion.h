@@ -25,6 +25,14 @@ public:
     this->duracion = duracion;
     this->filePath = filePath;
   };
+  int getId() const { return id; }
+  string getTitulo() const { return titulo; }
+  string getAutor() const { return autor; }
+  string getAlbum() const { return album; }
+  int getYear() const { return year; }
+  int getDuracion() const { return duracion; }
+  string getFilePath() const { return filePath; }
+
   ~Cancion() {};
   string mostrar() const
   {

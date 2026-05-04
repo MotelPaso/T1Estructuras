@@ -13,3 +13,4 @@
 13,I Was Made for Lovin You,KISS,Dynasty,1979,270,music/kiss/i_was_made_for_lovin_you.mp3
 14,Bohemian Rhapsody,Queen,A Night at the Opera,1975,354,music/queen/bohemian_rhapsody.mp3
 15,Blinding Lights,The Weeknd,After Hours,2019,200,music/the_weeknd/blinding_lights.mp3
+16,DIEGO,MALEBRAN,FF,2005,123,music_source.txt

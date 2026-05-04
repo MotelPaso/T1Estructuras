@@ -18,6 +18,7 @@ public:
   T *get(int index);
   bool isEmpty();
   std::string mostrar();
+  void removeAt(int index);
 };
 
 #include "LinkedList.cpp"

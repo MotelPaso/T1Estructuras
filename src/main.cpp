@@ -88,6 +88,37 @@ void mostrarCanciones()
   cout << listadoCanciones->mostrar() << endl;
 }
 
+void guardarMusicSource()
+{
+  fstream arch("../music_source.txt", ios::out);
+
+  if (!arch)
+  {
+    cout << "Error al guardar archivo" << endl;
+    return;
+  }
+
+  for (int i = 0; i < listadoCanciones->lentejas(); i++)
+  {
+    Cancion *c = listadoCanciones->get(i);
+
+    arch << c->getId() << ","
+         << c->getTitulo() << ","
+         << c->getAutor() << ","
+         << c->getAlbum() << ","
+         << c->getYear() << ","
+         << c->getDuracion() << ","
+         << c->getFilePath();
+
+    if (i < listadoCanciones->lentejas() - 1)
+    {
+      arch << endl;
+    }
+  }
+
+  arch.close();
+}
+
 void menuCanciones()
 {
   string opcionL;
@@ -193,7 +224,36 @@ void menuCanciones()
       listadoCanciones->append(c);
 
       cout << "Cancion agregada correctamente." << endl;
+      guardarMusicSource();
     }
+    else if (opcionL[0] == 'D' || opcionL[0] == 'd')
+    {
+    
+    if (opcionL.length() > 1)
+      {
+      int num = stoi(opcionL.substr(1));
+
+    if (num >= 1 && num <= listadoCanciones->lentejas())
+      {
+      Cancion *c = listadoCanciones->get(num - 1);
+      cout << "Eliminando: " << c->mostrar() << endl;
+
+      listadoCanciones->removeAt(num - 1);
+
+      cout << "Cancion eliminada correctamente." << endl;
+      guardarMusicSource();
+    }
+    else
+    {
+      cout << "Numero invalido." << endl;
+    }
+   }
+   else
+   {
+    cout << "Debes ingresar un numero. Ej: D3" << endl;
+  }
+  }
+
     else
     {
       cout << "Opcion no valida o aun no implementada." << endl;

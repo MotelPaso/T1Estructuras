@@ -1,5 +1,7 @@
 #include "ListaReproduccion.h"
 #include "../Cancion/Cancion.h"
+#include <cstdlib>
+#include <ctime>
 
 ListaReproduccion::~ListaReproduccion()
 {
@@ -100,10 +102,38 @@ void ListaReproduccion::remove()
 
 void ListaReproduccion::activarAleatorio()
 {
-  this->aleatorio = !this->aleatorio; //puede que ayude
+  if (this->size <= 2 || this->actual == nullptr || this->actual->next == nullptr)
+  {
+    this->aleatorio = !this->aleatorio;
+    return;
+  }
 
-  
-};
+  if (!this->aleatorio)
+  {
+    this->aleatorio = true;
+
+    srand(time(nullptr));
+
+    for (DNodo *i = this->actual->next; i != nullptr; i = i->next)
+    {
+      DNodo *randomNodo = this->actual->next;
+      int pasos = rand() % (this->size - 1);
+
+      for (int j = 0; j < pasos && randomNodo->next != nullptr; j++)
+      {
+        randomNodo = randomNodo->next;
+      }
+
+      Cancion *temp = i->cancion;
+      i->cancion = randomNodo->cancion;
+      randomNodo->cancion = temp;
+    }
+  }
+  else
+  {
+    this->aleatorio = false;
+  }
+}
 std::string ListaReproduccion::repetir(std::string r)
 {
   if (r == "R0" || r == "R1" || r == "RA")
@@ -132,10 +162,27 @@ std::string ListaReproduccion::getEstadoActual()
   {
     datos += "En pausa ";
   }
-  if (aleatorio)
+  if (aleatorio || tipoRepeticion != "R0")
   {
-    datos += "(S";
+    datos += "(";
+
+  if (aleatorio)
+    datos += "S";
+
+  if (tipoRepeticion != "R0")
+  {
+    if (aleatorio)
+      datos += "-";
+
+    datos += tipoRepeticion;
   }
+
+  datos += "): ";
+}
+else
+{
+  datos += ": ";
+}
   datos += tipoRepeticion != "R0" ? "-" + tipoRepeticion + ")" : ":";
 
   datos += " " + this->actual->cancion->mostrarEstado();
