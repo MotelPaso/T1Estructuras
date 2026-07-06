@@ -23,16 +23,16 @@ Para compilarlo y correrlo, se utilizó el siguiente comando:
 ```
 git clone https://github.com/MotelPaso/T1Estructuras
 cd T1Estructuras/src
-g++ main.cpp -o taller1
-./taller1
+g++ main.cpp -o taller2
+./taller2
 ```
 
-Si se desea revisar utilizando otro sistema operativo, se puede utilizar el archivo `taller1` del repositorio con los siguientes comandos:
+Si se desea revisar utilizando otro sistema operativo, se puede utilizar el archivo `taller2` del repositorio con los siguientes comandos:
 
 ```
 git clone https://github.com/MotelPaso/T1Estructuras
 cd T1Estructuras/src
-./taller1
+./taller2
 ```
 
 > **Nota:** El archivo `music_source.txt` debe estar en la carpeta raíz del repositorio (`T1Estructuras/`) para que el programa cargue las canciones correctamente.

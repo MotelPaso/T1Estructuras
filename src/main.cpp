@@ -14,10 +14,10 @@ using namespace std;
 LinkedList<Cancion *> *listadoCanciones = new LinkedList<Cancion *>();
 ListaReproduccion *listaReproduccion = new ListaReproduccion();
 Trie *trieCanciones = new Trie();
-void guardarEstado();
 
-
-void reconstruirTrie(){
+// crea una nueva instancia de Trie e inserta las canciones a este
+void reconstruirTrie()
+{
   delete trieCanciones;
   trieCanciones = new Trie();
 
@@ -36,6 +36,7 @@ void limpiarPantalla()
 #endif
 }
 
+// imprime las opciones del menu principal
 void mostrarOpciones()
 {
   cout << "Opciones:" << endl;
@@ -51,10 +52,12 @@ void mostrarOpciones()
   cout << "X - Salir" << endl;
   cout << "Ingrese Opción: ";
 };
+// util para la lectura y escritura de archivos
 bool esSeparador(char c)
 {
   return c == ',';
 }
+// carga la musica al listadoCanciones, devuelve true si no hay errores
 bool cargarMusica()
 {
   fstream arch("../music_source.txt");
@@ -68,7 +71,7 @@ bool cargarMusica()
 
   while (getline(arch, linea))
   {
-    string datos[8];
+    string datos[8]; // agregamos un espacio por los contadores de cancion
     int i = 0;
     string actual = "";
 
@@ -109,7 +112,24 @@ bool cargarMusica()
   arch.close();
   return true;
 };
+void guardarEstado()
+{
+  fstream arch("../status.cfg", ios::out);
 
+  if (!arch)
+  {
+    cout << "Error guardando estado" << endl;
+    return;
+  }
+
+  arch << listaReproduccion->getIndiceActual() << endl;
+  arch << listaReproduccion->estaReproduciendo() << endl;
+  arch << listaReproduccion->esAleatorio() << endl;
+  arch << listaReproduccion->getTipoRepeticion() << endl;
+
+  arch.close();
+}
+// carga las opciones de la sesion anterior, true si no hay errores
 bool cargarOpciones()
 {
   fstream arch("../status.cfg");
@@ -145,13 +165,13 @@ bool cargarOpciones()
   }
 
   listaReproduccion->moverAIndice(indiceActual);
-  listaReproduccion->setReproduciendo(reproduciendo == 1);
+  listaReproduccion->setReproduciendo(reproduciendo == 1); // a bool
   listaReproduccion->setAleatorio(aleatorio == 1);
   listaReproduccion->repetir(repeticion);
 
   return true;
 }
-
+// Imprime todas las canciones registradas
 void mostrarCanciones()
 {
   cout << endl;
@@ -166,6 +186,7 @@ void mostrarCanciones()
   cout << listadoCanciones->mostrar() << endl;
 }
 
+// Guarda todas las canciones en music_source.txt
 void guardarMusicSource()
 {
   fstream arch("../music_source.txt", ios::out);
@@ -179,7 +200,7 @@ void guardarMusicSource()
   for (int i = 0; i < listadoCanciones->lentejas(); i++)
   {
     Cancion *c = listadoCanciones->get(i);
-
+    // 27 getters
     arch << c->getId() << ","
          << c->getTitulo() << ","
          << c->getAutor() << ","
@@ -385,12 +406,12 @@ void menuCanciones()
 
     else
     {
-      cout << "Opcion no valida o aun no implementada." << endl;
+      cout << "Opcion invalida." << endl;
     }
 
   } while (true);
 }
-
+// limpia toda la memoria utilizada
 void cleanUp()
 {
   delete listaReproduccion;
@@ -457,6 +478,7 @@ void menuListaReproduccion()
 void cambiarRepeticion()
 {
   static int estado = 0;
+  // se pone static para que sea una variable cmo global, corte que se guarde en memoria cada vez
 
   if (estado == 0)
   {
@@ -474,25 +496,7 @@ void cambiarRepeticion()
     cout << "Repeticion desactivada" << endl;
   }
 
-  estado = (estado + 1) % 3;
-}
-
-void guardarEstado()
-{
-  fstream arch("../status.cfg", ios::out);
-
-  if (!arch)
-  {
-    cout << "Error guardando estado" << endl;
-    return;
-  }
-
-  arch << listaReproduccion->getIndiceActual() << endl;
-  arch << listaReproduccion->estaReproduciendo() << endl;
-  arch << listaReproduccion->esAleatorio() << endl;
-  arch << listaReproduccion->getTipoRepeticion() << endl;
-
-  arch.close();
+  estado = (estado + 1) % 3; // para q cuando llegue a 3 vuelva a 0
 }
 
 void menuResultadosBusqueda(LinkedList<Cancion *> *resultados, string textoBuscado)
@@ -680,8 +684,8 @@ void menuCancionesDeArtista(Heap<Cancion *> *heap, int posicionArtista)
     cout << "Opciones:" << endl;
     cout << "R<num> - Reproducir canción seleccionada" << endl;
     cout << "A<num> - Agregar canción seleccionada al final de la lista de reproducción actual" << endl;
-    cout << "V – Volver al listado de TOP 10 artistas" << endl;
-    cout << "X – Volver al menú principal" << endl;
+    cout << "V - Volver al listado de TOP 10 artistas" << endl;
+    cout << "X - Volver al menú principal" << endl;
     cout << "Ingrese Opción: ";
 
     cin >> opcion;
@@ -810,8 +814,8 @@ void menuTop()
       cout << "Opciones:" << endl;
       cout << "R<num> - Reproducir canción seleccionada" << endl;
       cout << "A<num> - Agregar canción seleccionada al final de la lista de reproducción actual" << endl;
-      cout << "A – Top 10 artistas más escuchados" << endl;
-      cout << "V – Volver al menú principal" << endl;
+      cout << "A - Top 10 artistas más escuchados" << endl;
+      cout << "V - Volver al menú principal" << endl;
       cout << "Ingrese Opción: ";
 
       cin >> opcion;
@@ -901,7 +905,7 @@ void menuTop()
       }
       else if (opcion == "A")
       {
-        opcion = "A"; // cae al bloque de abajo en la siguiente iteracion
+        opcion = "A"; // cambia la opcion a artista
         continue;
       }
       else
@@ -968,7 +972,7 @@ int main()
 {
   bool musicaCargada = cargarMusica();
   bool optionsCargadas = cargarOpciones();
-  reconstruirTrie();
+  reconstruirTrie(); // creamos el trie
   if (!(musicaCargada && optionsCargadas))
   {
     if (!musicaCargada)

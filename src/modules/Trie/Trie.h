@@ -43,9 +43,8 @@ class Trie
 {
 private:
   TrieNodo *raiz;
-
+  // devuelve la posicion de este char en el trie, usando a como 0.
   int indiceDe(char c);
-
   string aMinuscula(string texto);
 
   void insertarSufijo(string sufijo, Cancion *c);

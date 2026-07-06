@@ -52,16 +52,21 @@ public:
   void clear();
   std::string mostrarListaActual();
   void saltarA(int posicion);
+  // Devuelve la cantidad de canciones de la lista
+  // ejemplo: tejas = ['hola'], print(len(tejas))
   int lentejas();
 
+  // Se salta a la posicion indicada de la lista
+  void moverAIndice(int indice);
+  // Quita una cancion de la lista,
+  void eliminarCancion(Cancion *c);
+  // getters y setters
   bool estaReproduciendo();
   bool esAleatorio();
   string getTipoRepeticion();
   int getIndiceActual();
   void setReproduciendo(bool estado);
   void setAleatorio(bool estado);
-  void moverAIndice(int indice);
-  void eliminarCancion(Cancion *c);
 };
 
 #include "ListaReproduccion.cpp"

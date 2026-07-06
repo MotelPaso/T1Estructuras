@@ -24,7 +24,7 @@ int Trie::indiceDe(char c)
     return c - 'a';
   }
 
-  return -1; // caracter no valido 
+  return -1; // caracter no valido
 }
 
 string Trie::aMinuscula(string texto)
@@ -49,7 +49,7 @@ void Trie::insertarSufijo(string sufijo, Cancion *c)
 
     if (idx == -1)
     {
-      continue; // ignorar caracteres invalidos 
+      continue; // ignorar caracteres invalidos (no letras)
     }
 
     if (actual->hijos[idx] == nullptr)
@@ -70,7 +70,7 @@ void Trie::insertarCancion(Cancion *c)
 
   // insertamos todos los sufijos del titulo.
   // ej: "hola" genera "hola", "ola", "la", "a"
-  
+
   for (int i = 0; i < (int)titulo.size(); i++)
   {
     insertarSufijo(titulo.substr(i), c);
